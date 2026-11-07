@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const themeToggleBtn = document.getElementById('theme-toggle');
   const storedTheme = localStorage.getItem('mlf_theme') || 'dark';
 
+  let triggerThemeLightning = null;
+
   const setTheme = (theme) => {
     document.body.setAttribute('data-theme', theme);
     localStorage.setItem('mlf_theme', theme);
@@ -37,6 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
       setTheme(newTheme);
       showToast(`Mode ${newTheme === 'dark' ? 'Gelap (Hitam & Merah)' : 'Terang (Putih & Biru)'} diaktifkan!`);
+
+      if (triggerThemeLightning) {
+        triggerThemeLightning(newTheme === 'light');
+      }
     });
   }
 
@@ -60,20 +66,24 @@ document.addEventListener('DOMContentLoaded', () => {
     class LightningBolt {
       constructor(isLightMode) {
         this.isLightMode = isLightMode;
-        // Start from random point at top or top corners
-        this.x = Math.random() * width;
-        this.y = Math.random() * (height * 0.15);
+        // Start from random point at top or upper sides
+        this.x = 80 + Math.random() * (width - 160);
+        this.y = Math.random() * (height * 0.12);
         this.segments = [];
         this.alpha = 1.0;
-        this.fadeSpeed = 0.035;
+        this.fadeSpeed = isLightMode ? 0.028 : 0.035;
 
-        // Colors
+        // Vivid theme colors:
+        // Dark Mode: Crimson & Neon Red
+        // Light Mode: Vibrant Industrial Electric Blue & Cyan
         if (isLightMode) {
-          this.color = '#0284c7';
-          this.glowColor = 'rgba(2, 132, 199, 0.6)';
+          this.color = '#0284c7';        // Vibrant Electric Blue
+          this.coreColor = '#38bdf8';    // Bright Cyan Core
+          this.glowColor = 'rgba(2, 132, 199, 0.95)';
         } else {
-          this.color = '#ff4d5a';
-          this.glowColor = 'rgba(229, 9, 20, 0.8)';
+          this.color = '#e50914';        // Crimson Red
+          this.coreColor = '#ff4d5a';    // Neon Red Core
+          this.glowColor = 'rgba(229, 9, 20, 0.9)';
         }
 
         this.generateSegments();
@@ -82,18 +92,18 @@ document.addEventListener('DOMContentLoaded', () => {
       generateSegments() {
         let curX = this.x;
         let curY = this.y;
-        const targetY = Math.min(height * 0.85, curY + 250 + Math.random() * 350);
+        const targetY = Math.min(height * 0.88, curY + 280 + Math.random() * 380);
         const steps = 18 + Math.floor(Math.random() * 14);
 
         for (let i = 0; i < steps; i++) {
           const nextY = curY + (targetY - curY) / (steps - i);
-          const nextX = curX + (Math.random() - 0.5) * 55;
+          const nextX = curX + (Math.random() - 0.5) * 60;
           this.segments.push({ x1: curX, y1: curY, x2: nextX, y2: nextY });
 
-          // Occasional sub-branch
-          if (Math.random() < 0.25) {
-            const branchLen = 40 + Math.random() * 70;
-            const branchAngle = (Math.random() - 0.5) * Math.PI * 0.6;
+          // Occasional high-voltage branches
+          if (Math.random() < 0.28) {
+            const branchLen = 45 + Math.random() * 80;
+            const branchAngle = (Math.random() - 0.5) * Math.PI * 0.65;
             this.segments.push({
               x1: nextX,
               y1: nextY,
@@ -116,11 +126,13 @@ document.addEventListener('DOMContentLoaded', () => {
       draw(context) {
         if (this.alpha <= 0) return;
         context.save();
+        context.globalAlpha = Math.max(0, this.alpha);
+
+        // 1. Outer Glow Pass (Thick soft electric aura)
         context.strokeStyle = this.color;
         context.shadowColor = this.glowColor;
-        context.shadowBlur = 15;
-        context.lineWidth = 2;
-        context.globalAlpha = Math.max(0, this.alpha);
+        context.shadowBlur = this.isLightMode ? 22 : 18;
+        context.lineWidth = this.isLightMode ? 3.5 : 2.5;
 
         context.beginPath();
         this.segments.forEach(seg => {
@@ -128,9 +140,28 @@ document.addEventListener('DOMContentLoaded', () => {
           context.lineTo(seg.x2, seg.y2);
         });
         context.stroke();
+
+        // 2. Inner Bright Core Pass (Gives sharp high-voltage definition)
+        context.strokeStyle = this.coreColor;
+        context.shadowBlur = 8;
+        context.lineWidth = this.isLightMode ? 1.8 : 1.2;
+
+        context.beginPath();
+        this.segments.forEach(seg => {
+          context.moveTo(seg.x1, seg.y1);
+          context.lineTo(seg.x2, seg.y2);
+        });
+        context.stroke();
+
         context.restore();
       }
     }
+
+    // Expose immediate lightning trigger on theme change
+    triggerThemeLightning = (isLight) => {
+      bolts.push(new LightningBolt(isLight));
+      setTimeout(() => bolts.push(new LightningBolt(isLight)), 150);
+    };
 
     const animateLightning = (time) => {
       ctx.clearRect(0, 0, width, height);
@@ -138,18 +169,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const currentTheme = document.body.getAttribute('data-theme') || 'dark';
       const isLightMode = currentTheme === 'light';
 
-      // Spawn lightning at interval (faster in dark mode, slower in light mode)
-      const interval = isLightMode ? 6500 : 3800;
-      if (time - lastLightningTime > interval && Math.random() < 0.4) {
+      // Periodic electric lightning strikes
+      const interval = 3000;
+      if (time - lastLightningTime > interval && Math.random() < 0.45) {
         bolts.push(new LightningBolt(isLightMode));
-        if (!isLightMode && Math.random() < 0.3) {
+        if (Math.random() < 0.35) {
           // Double bolt for electric storm drama
-          setTimeout(() => bolts.push(new LightningBolt(false)), 120);
+          setTimeout(() => bolts.push(new LightningBolt(isLightMode)), 140);
         }
         lastLightningTime = time;
       }
 
-      // Update & draw bolts
+      // Update & draw active bolts
       for (let i = bolts.length - 1; i >= 0; i--) {
         bolts[i].update();
         bolts[i].draw(ctx);

@@ -190,12 +190,12 @@ button {
   height: 100vh;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.8;
+  opacity: 0.85;
   transition: opacity var(--transition-normal);
 }
 
 body[data-theme="light"] .lightning-canvas {
-  opacity: 0.25; /* softer in light mode */
+  opacity: 0.95; /* clearly visible and vivid blue electric lightning */
 }
 
 /* Ambient Glow Blobs */
@@ -851,6 +851,23 @@ body[data-theme="light"] .icon-moon {
   object-position: top center;
   display: block;
   transition: transform var(--transition-smooth);
+}
+
+/* Dynamic Portrait Switching for Dark and Light Modes */
+body[data-theme="dark"] .portrait-light {
+  display: none !important;
+}
+
+body[data-theme="dark"] .portrait-dark {
+  display: block !important;
+}
+
+body[data-theme="light"] .portrait-dark {
+  display: none !important;
+}
+
+body[data-theme="light"] .portrait-light {
+  display: block !important;
 }
 
 .portrait-card:hover .portrait-img {
