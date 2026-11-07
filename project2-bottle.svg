@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c0d12" />
+      <stop offset="100%" stop-color="#06070a" />
+    </linearGradient>
+    <linearGradient id="metalGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3f3f4e" />
+      <stop offset="50%" stop-color="#242430" />
+      <stop offset="100%" stop-color="#181822" />
+    </linearGradient>
+    <pattern id="grid2" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+    </pattern>
+  </defs>
+
+  <rect width="600" height="380" rx="12" fill="url(#bgGrad2)" />
+  <rect width="600" height="380" fill="url(#grid2)" rx="12" />
+
+  <!-- Industrial Header Banner -->
+  <rect x="25" y="20" width="550" height="35" rx="6" fill="#15151e" stroke="#252532" stroke-width="1" />
+  <circle cx="45" cy="37" r="5" fill="#e50914" />
+  <circle cx="62" cy="37" r="5" fill="#f59e0b" />
+  <circle cx="79" cy="37" r="5" fill="#10b981" />
+  <text x="105" y="42" font-family="'JetBrains Mono', monospace" font-size="12" fill="#a1a1aa" letter-spacing="1">CX-DESIGNER HMI • CONVEYOR & PACKAGING</text>
+  <rect x="460" y="27" width="100" height="20" rx="4" fill="rgba(229,9,20,0.15)" stroke="#e50914" stroke-width="1" />
+  <text x="473" y="41" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" fill="#ff4d4d">SPEED: 60 BPM</text>
+
+  <!-- Conveyor Assembly -->
+  <g transform="translate(40, 210)">
+    <!-- Main Conveyor Bed -->
+    <rect x="0" y="40" width="520" height="28" rx="6" fill="url(#metalGrad)" stroke="#3f3f52" stroke-width="2" />
+    <!-- Rollers -->
+    <circle cx="30" cy="54" r="9" fill="#1e1e28" stroke="#525266" stroke-width="2" />
+    <circle cx="160" cy="54" r="9" fill="#1e1e28" stroke="#525266" stroke-width="2" />
+    <circle cx="260" cy="54" r="9" fill="#1e1e28" stroke="#525266" stroke-width="2" />
+    <circle cx="360" cy="54" r="9" fill="#1e1e28" stroke="#525266" stroke-width="2" />
+    <circle cx="490" cy="54" r="9" fill="#1e1e28" stroke="#525266" stroke-width="2" />
+    <!-- Conveyor Belt motion dashes -->
+    <line x1="45" y1="44" x2="475" y2="44" stroke="#e50914" stroke-width="2" stroke-dasharray="8 6" />
+
+    <!-- Station 1: Empty Bottle Infeed -->
+    <g transform="translate(60, -35)">
+      <rect x="8" y="0" width="14" height="15" rx="2" fill="#94a3b8" />
+      <rect x="0" y="15" width="30" height="60" rx="5" fill="#1e293b" stroke="#64748b" stroke-width="2" opacity="0.8" />
+      <text x="15" y="50" font-family="'JetBrains Mono', monospace" font-size="9" fill="#cbd5e1" text-anchor="middle">EMPTY</text>
+    </g>
+
+    <!-- Station 2: Bottle Filling Station -->
+    <g transform="translate(200, -35)">
+      <rect x="8" y="0" width="14" height="15" rx="2" fill="#94a3b8" />
+      <rect x="0" y="15" width="30" height="60" rx="5" fill="#1e293b" stroke="#e50914" stroke-width="2" />
+      <!-- Liquid filling stream & volume -->
+      <rect x="4" y="35" width="22" height="36" rx="2" fill="#ef4444" opacity="0.85" />
+      <line x1="15" y1="-30" x2="15" y2="35" stroke="#ef4444" stroke-width="3" stroke-dasharray="4 2" />
+      <text x="15" y="58" font-family="'JetBrains Mono', monospace" font-size="8" fill="#ffffff" font-weight="bold" text-anchor="middle">FILLING</text>
+    </g>
+
+    <!-- Station 3: Sealing / Capping Station -->
+    <g transform="translate(340, -35)">
+      <!-- Cap (Red) -->
+      <rect x="6" y="-5" width="18" height="12" rx="2" fill="#dc2626" stroke="#ffffff" stroke-width="1" />
+      <rect x="8" y="5" width="14" height="10" rx="2" fill="#94a3b8" />
+      <rect x="0" y="15" width="30" height="60" rx="5" fill="#1e293b" stroke="#22c55e" stroke-width="2" />
+      <rect x="4" y="25" width="22" height="46" rx="2" fill="#ef4444" opacity="0.95" />
+      <text x="15" y="58" font-family="'JetBrains Mono', monospace" font-size="8" fill="#ffffff" font-weight="bold" text-anchor="middle">SEALED</text>
+    </g>
+
+    <!-- Station 4: Outfeed / Passed QA -->
+    <g transform="translate(450, -35)">
+      <rect x="6" y="-5" width="18" height="12" rx="2" fill="#dc2626" />
+      <rect x="8" y="5" width="14" height="10" rx="2" fill="#94a3b8" />
+      <rect x="0" y="15" width="30" height="60" rx="5" fill="#1e293b" stroke="#3b82f6" stroke-width="2" />
+      <rect x="4" y="25" width="22" height="46" rx="2" fill="#ef4444" />
+      <text x="15" y="58" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" text-anchor="middle">READY</text>
+    </g>
+  </g>
+
+  <!-- Filling Mechanism Gantry (Overhead) -->
+  <g transform="translate(225, 75)">
+    <!-- Support Gantry -->
+    <rect x="0" y="0" width="30" height="70" fill="#222230" stroke="#3f3f50" stroke-width="2" />
+    <rect x="-10" y="65" width="50" height="16" rx="3" fill="#e50914" />
+    <polygon points="10,81 20,81 15,95" fill="#ffffff" />
+    <text x="15" y="50" font-family="'JetBrains Mono', monospace" font-size="9" fill="#a1a1aa" text-anchor="middle">NOZZLE</text>
+    <!-- Sensor indicator beam -->
+    <line x1="-35" y1="90" x2="65" y2="90" stroke="#eab308" stroke-width="1.5" stroke-dasharray="3 3" />
+    <circle cx="-35" cy="90" r="4" fill="#eab308" />
+  </g>
+
+  <!-- Capping Press Cylinder (Overhead) -->
+  <g transform="translate(365, 75)">
+    <rect x="0" y="0" width="30" height="60" fill="#222230" stroke="#3f3f50" stroke-width="2" />
+    <rect x="5" y="60" width="20" height="25" fill="#475569" stroke="#64748b" stroke-width="1" />
+    <rect x="-5" y="85" width="40" height="10" rx="2" fill="#dc2626" />
+    <text x="15" y="45" font-family="'JetBrains Mono', monospace" font-size="8" fill="#a1a1aa" text-anchor="middle">PRESS</text>
+  </g>
+
+  <!-- Diagnostics Footer Panel -->
+  <g transform="translate(30, 305)">
+    <rect x="0" y="0" width="540" height="55" rx="6" fill="#111118" stroke="#252535" stroke-width="1" />
+    <text x="20" y="24" font-family="'JetBrains Mono', monospace" font-size="11" fill="#e4e4e7">PROXIMITY SENSOR E2B-M12: <tspan fill="#22c55e">DETECTED (BOTTLE #249)</tspan></text>
+    <text x="20" y="42" font-family="'JetBrains Mono', monospace" font-size="11" fill="#a1a1aa">PNEUMATIC CYLINDER: <tspan fill="#38bdf8">STROKE 50mm ACTIVE</tspan> | SOLENOID: <tspan fill="#e50914">ENGAGED</tspan></text>
+  </g>
+</svg>
